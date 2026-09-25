@@ -1,1 +1,190 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>OrgSuite Business Desk</title></head><body><p>See production deploy on social.pse-sent.com for full desk UI. Studio: https://xenon-heart-sapphire-clover.grok.me/</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OrgSuite Business Desk</title>
+<style>
+:root{--wa:#25d366;--ink:#073b27;--navy:#0a2540;--bg:#f0f2f5;--card:#fff;--muted:#667781;--thread:#e5ddd5;--bubble:#dcf8c6;--ack:#fff8e1;--ackink:#8a5a00;--lock:#fdecea;--lockink:#b3261e;--auth:#e8f1f8;--authink:#0b4f8a}
+*{box-sizing:border-box}body{margin:0;font-family:Manrope,Segoe UI,sans-serif;background:var(--bg);color:#111b21;height:100dvh}
+button,textarea,input{font:inherit}button{cursor:pointer}
+.app{height:100dvh;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:12px;background:#fff;border-bottom:1px solid #0a254014;padding:8px 12px}
+.os{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--navy);font-weight:800;box-shadow:0 0 0 3px var(--wa)}
+.brand{font-weight:800;color:var(--navy)}.sub{font-size:12px;color:var(--muted)}
+.dots{margin-left:auto;display:flex;gap:12px;font-size:12px;font-weight:700;color:var(--muted)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px}
+.g{background:var(--wa)}.y{background:var(--ackink)}.r{background:var(--lockink)}.b{background:var(--authink)}
+.tabs{display:flex;background:var(--bg);border-radius:999px;padding:4px}
+.tabs button{border:0;background:transparent;border-radius:999px;padding:8px 14px;font-weight:800;color:var(--navy)}
+.tabs button.on{background:var(--navy);color:#fff}
+.desk{flex:1;min-height:0;display:grid;grid-template-columns:320px 1fr 300px}
+.list,.info{background:#fff;min-height:0;display:flex;flex-direction:column}
+.list{border-right:1px solid #0a254014}.info{border-left:1px solid #0a254014;padding:16px;overflow:auto}
+.search{margin:12px;position:relative}
+.search input{width:100%;height:44px;border:0;border-radius:12px;background:var(--bg);padding:0 12px 0 36px}
+.filters{display:flex;gap:6px;padding:0 12px 12px}
+.filters button{flex:1;border:0;border-radius:999px;background:var(--bg);min-height:40px;font-size:12px;font-weight:800;color:var(--navy)}
+.filters button.on{background:var(--navy);color:#fff}
+.rows{overflow:auto;min-height:0}
+.row{width:100%;display:flex;gap:10px;text-align:left;border:0;background:#fff;padding:12px}
+.row.on{background:#e7f8ee}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}
+.wa{background:var(--wa);color:var(--ink)}.tp{background:var(--navy);color:#fff}.sy{background:var(--auth);color:var(--authink)}
+.name{font-weight:800;color:var(--navy);font-size:14px}.meta{color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat{min-height:0;display:flex;flex-direction:column}
+.head{display:flex;align-items:center;gap:10px;background:#fff;border-bottom:1px solid #0a254014;padding:8px 12px}
+.thread{flex:1;min-height:0;overflow:auto;padding:16px;background:var(--thread);background-image:radial-gradient(rgba(17,27,33,.07) 1px,transparent 1px);background-size:16px 16px}
+.note,.empty{max-width:420px;margin:0 auto 8px;border-radius:12px;padding:10px 12px;text-align:center;font-size:13px}
+.note{background:rgba(255,255,255,.85);color:var(--muted)}.empty{background:#fff;color:var(--navy)}
+.out{margin:0 0 8px auto;max-width:320px;background:var(--bubble);border-radius:16px 16px 4px 16px;padding:8px 10px;box-shadow:0 1px 2px #00000014}
+.tick{text-align:right;font-size:11px;color:var(--muted);font-weight:700}
+.composer{display:flex;gap:8px;background:#fff;padding:8px;border-top:1px solid #0a254014}
+.composer textarea,.priv textarea{width:100%;border:0;resize:none;background:var(--bg);border-radius:12px;padding:10px}
+.priv{background:var(--ack);padding:8px 12px}
+.priv span{font-size:11px;font-weight:800;letter-spacing:.04em;color:var(--ackink)}
+.priv textarea{background:transparent;color:var(--ackink);padding:6px 0}
+.send{width:44px;height:44px;border:0;border-radius:50%;background:var(--wa);color:var(--ink);font-weight:800}
+.card{border-radius:16px;padding:14px;margin-top:12px}
+.ybg{background:var(--ack);color:var(--ackink)}.rbg{background:var(--lock);color:var(--lockink)}.bbg{background:var(--auth);color:var(--authink)}.gbg{background:#e7f8ee;color:var(--ink)}
+.setup{overflow:auto;padding:20px;max-width:720px;margin:0 auto}
+.hidden{display:none}
+.link{display:inline-block;margin-top:12px;background:var(--wa);color:var(--ink);text-decoration:none;font-weight:800;border-radius:12px;padding:10px 12px}
+@media(max-width:1100px){.desk{grid-template-columns:300px 1fr}.info{display:none}.info.show{display:flex;position:fixed;inset:57px 0 0 0;z-index:3}}
+@media(max-width:800px){.dots{display:none}.desk{grid-template-columns:1fr}.list.hide-m,.chat.hide-m{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="os">OS</div>
+    <div><div class="brand">PSE SENT</div><div class="sub">OrgSuite desk · local only</div></div>
+    <div class="dots">
+      <span><i class="dot g"></i>Board 200</span>
+      <span id="wh-dot"><i class="dot y"></i>Webhook</span>
+      <span id="cl-dot"><i class="dot r"></i>Cloud</span>
+    </div>
+    <div class="tabs">
+      <button type="button" id="tab-chat" class="on">Chat</button>
+      <button type="button" id="tab-setup">Setup</button>
+    </div>
+  </header>
+  <div id="chat-view" class="desk">
+    <aside class="list" id="list">
+      <div class="search"><input id="q" placeholder="Search contacts" aria-label="Search contacts"/></div>
+      <div class="filters">
+        <button type="button" data-f="all" class="on">All</button>
+        <button type="button" data-f="textplus">TextPlus</button>
+        <button type="button" data-f="whatsapp">WhatsApp Cloud</button>
+      </div>
+      <div class="rows" id="rows"></div>
+    </aside>
+    <section class="chat" id="chat">
+      <div class="head">
+        <button type="button" id="back" class="send" style="width:auto;border-radius:12px;padding:0 10px">Chats</button>
+        <div id="av" class="av wa">KU</div>
+        <div style="flex:1;min-width:0"><strong id="cname">Kim Uhelski</strong><div class="sub" id="csub"></div></div>
+        <button type="button" id="info-btn" class="send" style="width:auto;border-radius:12px;padding:0 10px">Status</button>
+      </div>
+      <div class="thread" id="thread"></div>
+      <form class="composer" id="form">
+        <textarea id="draft" rows="1" placeholder="Local note — not sent" aria-label="Message"></textarea>
+        <button class="send" type="submit" aria-label="Add local bubble">➤</button>
+      </form>
+      <label class="priv"><span>PRIVATE NOTE · THIS BROWSER ONLY</span><textarea id="pnote" rows="2" placeholder="Yellow notes stay here. They are not sent."></textarea></label>
+    </section>
+    <aside class="info" id="info"></aside>
+  </div>
+  <div id="setup-view" class="setup hidden"></div>
+</div>
+<script>
+const KEY="orgsuite-desk-v1";
+const EMPTY="This is a local professional desk. Messages do not send on WhatsApp until Vercel env + Meta Verified.";
+const PEOPLE=[
+  {id:"kim",name:"Kim Uhelski",initials:"KU",ch:"whatsapp",badge:"Documented",number:"+1 (512) 562-4400",preview:"Not a Cloud API session",href:"https://wa.me/15125624400",hrefLabel:"Open wa.me",seed:"Documented number from the textplus-mirror README. Messages typed here stay in this browser. They are not sent to WhatsApp."},
+  {id:"textplus",name:"TextPlus Pro Host",initials:"TP",ch:"textplus",badge:"Live host",number:"+1 (814) 621-5634",preview:"orgsuitetextplus.pse-sent.com",href:"https://orgsuitetextplus.pse-sent.com/",hrefLabel:"Open host",seed:"The TextPlus host is live. This chat does not send SMS."},
+  {id:"command",name:"Command Center",initials:"CC",ch:"system",badge:"System",preview:"Not a phone line",href:"https://orgsuite-codex-command-center.vercel.app",hrefLabel:"Open center",seed:"System link only. Not a WhatsApp thread."}
+];
+let filter="all", picked="kim", probe={verify:"missing",cloud:"unauthorized"};
+let desk=load();
+function load(){try{const r=JSON.parse(localStorage.getItem(KEY)||"");if(r&&r.threads)return r}catch(e){}
+  const threads={};PEOPLE.forEach(p=>threads[p.id]=[{role:"note",text:p.seed,at:""}]);return{threads,notes:{},drafts:{}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(desk))}
+function clock(iso){if(!iso)return"";const d=new Date(iso);return Number.isNaN(d.getTime())?"":d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}
+function person(){return PEOPLE.find(p=>p.id===picked)}
+function paintList(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const rows=document.getElementById("rows");
+  rows.innerHTML="";
+  PEOPLE.filter(p=>filter==="all"||p.ch===filter).filter(p=>{
+    const last=[...(desk.threads[p.id]||[])].reverse().find(b=>b.role==="out");
+    return !q||(p.name+" "+(p.number||"")+" "+(last?last.text:"")).toLowerCase().includes(q);
+  }).forEach(p=>{
+    const last=[...(desk.threads[p.id]||[])].reverse().find(b=>b.role==="out");
+    const note=(desk.notes[p.id]||"").trim();
+    const b=document.createElement("button");
+    b.type="button";b.className="row"+(p.id===picked?" on":"");
+    b.innerHTML=`<span class="av ${p.ch==="whatsapp"?"wa":p.ch==="textplus"?"tp":"sy"}">${p.initials}</span><span style="min-width:0;flex:1"><span style="display:flex;justify-content:space-between;gap:8px"><span class="name">${esc(p.name)}</span><span class="sub">${last?clock(last.at):""}</span></span><span class="meta">${esc(last?last.text:p.preview)}${note?" ●":""}</span></span>`;
+    b.onclick=()=>{picked=p.id;document.getElementById("list").classList.add("hide-m");document.getElementById("chat").classList.remove("hide-m");paint()};
+    rows.appendChild(b);
+  });
+}
+function paintThread(){
+  const p=person();
+  document.getElementById("cname").textContent=p.name;
+  document.getElementById("csub").textContent=(p.number?p.number+" · ":"")+p.badge+" · local only";
+  document.getElementById("av").textContent=p.initials;
+  document.getElementById("av").className="av "+(p.ch==="whatsapp"?"wa":p.ch==="textplus"?"tp":"sy");
+  const thread=document.getElementById("thread");
+  const bubbles=desk.threads[p.id]||[];
+  thread.innerHTML=bubbles.map(b=>b.role==="note"?`<p class="note">${esc(b.text)}</p>`:`<div class="out"><div>${esc(b.text)}</div><div class="tick">${clock(b.at)} ✓ <span style="position:absolute;left:-999px">Local only, not delivered</span></div></div>`).join("");
+  if(!bubbles.some(b=>b.role==="out"))thread.insertAdjacentHTML("beforeend",`<p class="empty">${EMPTY}</p>`);
+  thread.scrollTop=thread.scrollHeight;
+  document.getElementById("draft").value=desk.drafts[p.id]||"";
+  document.getElementById("pnote").value=desk.notes[p.id]||"";
+  const info=document.getElementById("info");
+  const wh=whView();
+  info.innerHTML=`<button type="button" id="info-back" class="send" style="width:auto;border-radius:12px;padding:0 10px;margin-bottom:12px">Back</button>
+    <div style="display:flex;gap:10px;align-items:center"><span class="av ${p.ch==="whatsapp"?"wa":p.ch==="textplus"?"tp":"sy"}">${p.initials}</span><div><strong>${esc(p.name)}</strong><div class="sub">${esc(p.number||"No phone line")}</div></div></div>
+    <p class="sub" style="margin-top:8px">${esc(p.badge)}</p>
+    <div class="card" style="background:var(--bg)"><strong>Honest status</strong><p>${wh.label}</p><p>${probe.cloud==="env_set"?"Cloud env is set. Send is not tested.":"Cloud send · Requires Authorization"}</p><p>Instagram · Locked</p><p>Vercel ↔ Git · 409 until the project is linked</p></div>
+    <p class="sub">${esc(p.seed)}</p>${p.href?`<a class="link" href="${p.href}" target="_blank" rel="noreferrer">${esc(p.hrefLabel)}</a>`:""}`;
+  document.getElementById("info-back").onclick=()=>document.getElementById("info").classList.remove("show");
+}
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return c==="&"?"\u0026amp;":c==="<"?"\u0026lt;":"\u0026gt;";})}
+function whView(){
+  if(probe.verify==="verified")return{label:"Verified",cls:"g"};
+  if(probe.verify==="mismatch")return{label:"Token mismatch",cls:"r"};
+  return{label:"Ready to Configure",cls:"y"};
+}
+function paintSetup(){
+  const wh=whView();
+  document.getElementById("setup-view").innerHTML=`<p class="sub">LIVE PROBE</p><h1>Setup</h1><p class="sub">This page calls /api/webhooks/whatsapp. It never prints a token.</p>
+    <div class="card ${wh.cls==="g"?"gbg":wh.cls==="r"?"rbg":"ybg"}"><div class="sub">WEBHOOK</div><h2>${wh.label}</h2><p>${probe.verify==="missing"?"WHATSAPP_VERIFY_TOKEN is missing on this server.":probe.verify==="mismatch"?"The verify call failed.":"Green only after Meta’s challenge comes back."}</p></div>
+    <div class="card rbg"><div class="sub">CLOUD SEND</div><h2>${probe.cloud==="env_set"?"Env is set. A send from this desk is still not authorized.":"Requires Authorization"}</h2></div>
+    <div class="card rbg"><div class="sub">INSTAGRAM</div><h2>Locked</h2><p>@_ibrohim_0111_ stays on instagram.com/hacked.</p></div>
+    <div class="card bbg"><div class="sub">VERCEL ↔ GIT</div><h2>409</h2><p>Shown until the existing Vercel project is git-linked.</p></div>`;
+}
+function paint(){paintList();paintThread();paintSetup();
+  const wh=whView();
+  document.getElementById("wh-dot").innerHTML=`<i class="dot ${wh.cls}"></i>${wh.label==="Verified"?"Verified":wh.label==="Token mismatch"?"Mismatch":"Webhook"}`;
+  document.getElementById("cl-dot").innerHTML=`<i class="dot ${probe.cloud==="env_set"?"y":"r"}></i>${probe.cloud==="env_set"?"Cloud env":"Cloud"}`;
+  save();
+}
+document.getElementById("q").oninput=paintList;
+document.querySelectorAll("[data-f]").forEach(btn=>btn.onclick=()=>{filter=btn.dataset.f;document.querySelectorAll("[data-f]").forEach(b=>b.classList.toggle("on",b===btn));paintList()});
+document.getElementById("form").onsubmit=e=>{e.preventDefault();send()};
+document.getElementById("draft").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}};
+document.getElementById("draft").oninput=e=>{desk.drafts[picked]=e.target.value;save()};
+document.getElementById("pnote").oninput=e=>{desk.notes[picked]=e.target.value;save();paintList()};
+function send(){const text=document.getElementById("draft").value.trim();if(!text)return;desk.threads[picked]=desk.threads[picked]||[];desk.threads[picked].push({role:"out",text,at:new Date().toISOString()});desk.drafts[picked]="";paint()}
+document.getElementById("back").onclick=()=>{document.getElementById("list").classList.remove("hide-m");document.getElementById("chat").classList.add("hide-m")};
+document.getElementById("info-btn").onclick=()=>document.getElementById("info").classList.add("show");
+document.getElementById("tab-chat").onclick=()=>{document.getElementById("chat-view").classList.remove("hidden");document.getElementById("setup-view").classList.add("hidden");document.getElementById("tab-chat").classList.add("on");document.getElementById("tab-setup").classList.remove("on")};
+document.getElementById("tab-setup").onclick=()=>{document.getElementById("chat-view").classList.add("hidden");document.getElementById("setup-view").classList.remove("hidden");document.getElementById("tab-setup").classList.add("on");document.getElementById("tab-chat").classList.remove("on")};
+fetch("/api/webhooks/whatsapp?probe=1").then(r=>r.json()).then(d=>{probe={verify:d.verify==="awaiting"||d.verify==="mismatch"||d.verify==="verified"?d.verify:"missing",cloud:d.cloud==="env_set"?"env_set":"unauthorized"};paint()}).catch(()=>paint());
+if(matchMedia("(max-width:800px)").matches)document.getElementById("chat").classList.add("hide-m");
+paint();
+</script>
+</body>
+</html>
