@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OrgSuite · Social Hub</title>
+<style>
+:root{--wa:#25d366;--navy:#0a2540;--bg:#f0f2f5;--card:#fff;--ink:#111b21;--muted:#667781}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+aside{background:var(--navy);color:#fff;padding:20px 16px}
+.logo{width:48px;height:48px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:800}
+.biz{margin:14px 0 22px}.biz h1{font-size:1.05rem;margin:0}.biz p{margin:4px 0 0;color:#9fb3c8;font-size:.82rem}
+nav button{width:100%;text-align:left;border:0;background:transparent;color:#d6e4f0;padding:10px 12px;border-radius:10px;margin-bottom:6px;font-weight:600;cursor:pointer}
+nav button.on{background:#16375c;color:#fff}
+main{padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 1px 2px #00000014}
+.badge{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;border-radius:999px;padding:3px 8px}
+.live{background:#e7f8ee;color:#0d6b3a}.ack{background:#fff8e1;color:#8a5a00}.lock{background:#fdecea;color:#b3261e}.auth{background:#e3f2fd;color:#0b4f8a}
+h2{margin:8px 0 6px;font-size:1rem}.meta{color:var(--muted);font-size:.84rem}.num{font-weight:800;margin:8px 0}
+a.btn{display:inline-block;background:var(--wa);color:#073b27;text-decoration:none;font-weight:700;border-radius:12px;padding:8px 11px;margin:6px 6px 0 0;font-size:.82rem}
+.warn{background:#fff8e1;border-radius:16px;padding:12px 14px;margin-bottom:14px}
+.hidden{display:none}footer{margin-top:18px;color:var(--muted);font-size:.78rem}
+@media(max-width:800px){.app{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="logo">OS</div>
+  <div class="biz"><h1>OrgSuite Business</h1><p>PSE Management</p></div>
+  <nav>
+    <button class="on" id="btn-board" type="button">Board</button>
+    <button id="btn-guide" type="button">Build Guide</button>
+  </nav>
+</aside>
+<main>
+  <div class="warn"><span class="badge lock">Locked</span> @_ibrohim_0111_ recover at instagram.com/hacked</div>
+  <section id="board" class="grid">
+    <article class="card"><span class="badge live">Live host</span><h2>TextPlus Pro</h2><div class="num"><a href="tel:+18146215634">+1 (814) 621-5634</a></div><a class="btn" href="https://orgsuitetextplus.pse-sent.com/">Open host</a></article>
+    <article class="card"><span class="badge live">Documented</span><h2>WhatsApp Primary</h2><div class="num"><a href="tel:+15125624400">+1 (512) 562-4400</a></div><a class="btn" href="https://wa.me/15125624400">wa.me</a></article>
+    <article class="card"><span class="badge live">Done PSE-99</span><h2>Facebook / Business Suite</h2><a class="btn" href="https://business.facebook.com">Business Suite</a></article>
+    <article class="card"><span class="badge ack">Acknowledged</span><h2>Meta AI @orgsuite2</h2><a class="btn" href="https://meta.ai/@orgsuite2">Open persona</a></article>
+    <article class="card"><span class="badge ack">Board only</span><h2>Social surfaces</h2><a class="btn" href="https://instagram.com/orgsuite2">IG @orgsuite2</a></article>
+    <article class="card"><span class="badge lock">Locked</span><h2>@_ibrohim_0111_</h2><a class="btn" href="https://www.instagram.com/hacked">Recover</a></article>
+    <article class="card"><span class="badge auth">Requires Authorization</span><h2>Meta MCP</h2><a class="btn" href="https://grok.com/connectors">Grok connectors</a></article>
+    <article class="card"><span class="badge live">Live</span><h2>Social Hub</h2><a class="btn" href="https://orgsuite-social-hub-pse-sent.vercel.app">Open live</a></article>
+  </section>
+  <section id="guide" class="hidden card">
+    <h2>Build Guide</h2>
+    <ol>
+      <li>GitHub: pointgoddesscc-sketch/orgsuite-social-hub. No secrets.</li>
+      <li>Vercel project orgsuite-social-hub on team PSE SENT.</li>
+      <li>Domain social.pse-sent.com requires Cloudflare CNAME social to cname.vercel-dns.com.</li>
+      <li>Meta MCP after PSE-144 lock only.</li>
+    </ol>
+    <p class="meta">Acknowledged ≠ Connected · Board only ≠ login</p>
+  </section>
+  <footer>Does not post, boost, or clear a lock.</footer>
+</main>
+</div>
+<script>
+const board=document.getElementById('board'),guide=document.getElementById('guide'),b=document.getElementById('btn-board'),g=document.getElementById('btn-guide');
+b.onclick=()=>{board.classList.remove('hidden');guide.classList.add('hidden');b.classList.add('on');g.classList.remove('on')};
+g.onclick=()=>{guide.classList.remove('hidden');board.classList.add('hidden');g.classList.add('on');b.classList.remove('on')};
+</script>
+</body></html>
